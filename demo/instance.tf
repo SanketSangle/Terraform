@@ -67,7 +67,7 @@ resource "aws_instance" "web" {
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name
-  security_groups = [aws_security_group.instance.name]
+  # security_groups = [aws_security_group.instance.name]
 
   tags = {
     Name = "MyEC2Instance"
