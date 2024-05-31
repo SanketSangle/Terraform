@@ -60,7 +60,7 @@ variable "security_group_name" {
   #   protocol    = "-1"
   #   cidr_blocks = ["0.0.0.0/0"]
   # }
-}
+# }
 
 # Define the EC2 instance
 resource "aws_instance" "web" {
