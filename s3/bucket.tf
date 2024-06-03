@@ -12,8 +12,18 @@ variable "bucket_name" {
 # Create S3 bucket
 resource "aws_s3_bucket" "my_bucket" {
   bucket = var.bucket_name
-  acl    = "public-read"  # Grant public read access to the objects in the bucket
+  acl    = "private"  # Set the bucket ACL to private
   force_destroy = true    # Required to delete non-empty bucket
+  # Enable Object Ownership settings
+  object_lock_configuration {
+    object_lock_enabled = "Enabled"
+    rule {
+      default_retention {
+        mode = "GOVERNANCE"
+        days = 1
+      }
+    }
+  }
 }
 
 # Output the bucket name and website endpoint
