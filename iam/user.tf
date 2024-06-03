@@ -63,3 +63,8 @@ resource "aws_s3_bucket_object" "admin_user_key" {
 output "s3_object_url" {
   value = aws_s3_bucket_object.admin_user_key.id
 }
+
+# Output the S3 object URL
+# output "s3_object_url" {
+#   value = "s3://${aws_s3_object.admin_user_key.bucket}/${aws_s3_object.admin_user_key.key}"
+# }
