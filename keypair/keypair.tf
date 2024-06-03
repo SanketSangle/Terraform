@@ -1,35 +1,45 @@
-# Specify the Terraform version
-terraform {
-  required_version = ">= 0.12"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 3.0"
-    }
-  }
-}
-
-# Configure the AWS provider
 provider "aws" {
-  region = "us-east-1" # Specify your preferred region
+  region = "us-east-1"  # Replace with your desired region
 }
 
-# Create a key pair
-resource "aws_key_pair" "ec2_key_pair" {
-  key_name   = "my-ec2-key-pair"
-  public_key = file("C:\Users\Admin\.ssh/id_rsa.pub") # Path to your existing public key file
+# Variables
+variable "key_name" {
+  description = "The name of the SSH key pair to create"
+  type        = string
 }
 
-# Create an EC2 instance
-# resource "aws_instance" "my_ec2_instance" {
-#   ami           = "ami-0c55b159cbfafe1f0" # Replace with your preferred AMI ID
-#   instance_type = "t2.micro"
-#   key_name      = aws_key_pair.ec2_key_pair.key_name
+variable "bucket_name" {
+  description = "The name of the existing S3 bucket where the key will be stored"
+  type        = string
+  default = "ec2-resource-tf"
+}
 
-#   tags = {
-#     Name = "my-ec2-instance"
-#   }
+# Create SSH key pair
+resource "tls_private_key" "example" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = var.key_name
+  public_key = tls_private_key.example.public_key_openssh
+}
+
+# Store private key in S3 bucket
+resource "aws_s3_bucket_object" "private_key" {
+  bucket = var.bucket_name
+  key    = "${var.key_name}_private_key.pem"
+  content = tls_private_key.example.private_key_pem
+  acl    = "private"
+}
+
+# Output the key name and location in S3 (optional, for verification)
+output "key_name" {
+  description = "The name of the SSH key pair"
+  value       = aws_key_pair.generated_key.key_name
+}
+
+# output "private_key_s3_path" {
+#   description = "The S3 path to the private key"
+#   value       = "s3://${var.bucket_name}/${var.key_name}_private_key.pem"
 # }
-
-# Output the instance ID and public IP
-# s
