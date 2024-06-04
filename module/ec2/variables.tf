@@ -41,3 +41,8 @@ variable "this_aws_instance_tags" {
   description = "A map of tags to assign to the EC2 instance (e.g., Name: my-instance)"
   type = map(string)
 }
+
+variable "this_sg_vpc_id" {
+  description = "The ID of the VPC where the security group applies"
+  type = string
+}
