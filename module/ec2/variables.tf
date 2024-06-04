@@ -39,7 +39,7 @@ variable "this_aws_instance_user_data_base64" {
 
 variable "this_aws_instance_tags" {
   description = "A map of tags to assign to the EC2 instance (e.g., Name: my-instance)"
-  type = map(string)
+  type = string
 }
 
 variable "this_sg_vpc_id" {
