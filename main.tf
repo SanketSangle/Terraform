@@ -32,7 +32,7 @@ module "ec2" {
     this_aws_instance_user_data_base64 = true
     this_aws_instance_tags =  "Terraform_instance"
     //this_aws_instance_subnet = module.vpc.subnet_id
-    //this_sg_vpc_id = module.vpc.vpc_id
+    this_sg_vpc_id = module.vpc.vpc_id
     //this_aws_vpc_id = module.aws_vpc.aws_vpc_id
 }
 
