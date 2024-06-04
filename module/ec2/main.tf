@@ -5,7 +5,7 @@ resource "aws_instance" "this_aws_instance" {
   vpc_security_group_ids =  [aws_security_group.this_sg.id]
 //[var.this_aws_instance_sg_id]
   availability_zone      = var.this_aws_instance_availability_zone
-  subnet_id = var.this_aws_instance_subnet 
+  //subnet_id = var.this_aws_instance_subnet 
   root_block_device {
     volume_size = var.this_aws_instance_volume_size
   }
