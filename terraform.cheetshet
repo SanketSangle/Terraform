@@ -11,3 +11,11 @@ terraform apply
 terraform apply --auto-approve 
 
 terraform destroy 
+
+terraform fmt
+
+terraform validate
+
+terraform destroy 
+
+terraform destroy --target github_repository.terraformrepo1 
