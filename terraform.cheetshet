@@ -16,6 +16,4 @@ terraform fmt
 
 terraform validate
 
-terraform destroy 
-
 terraform destroy --target github_repository.terraformrepo1 
